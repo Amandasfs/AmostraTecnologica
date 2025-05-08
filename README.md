@@ -1,0 +1,2 @@
+Fase 1 - criação do ambiente de desenvolvimento, foram criadas as pastas e arquivos principais, incluindo o arquivo `main.py` que será o ponto de entrada do programa.
+Também foram adicionadas as frameworks de desenvolvimento como vite, react, tailwind e outros.

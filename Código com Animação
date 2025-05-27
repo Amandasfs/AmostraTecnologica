@@ -1,0 +1,51 @@
+import networkx as nx
+import os
+
+os.startfile(r"C:\Users\mathe\Downloads\animacao_ubatuba_entupimento.mp4")
+
+
+#  ETA = Estação de Tratamento
+ubatuba = nx.Graph()
+ubatuba.add_weighted_edges_from([
+    ("Centro", "Itaguá", 500),
+    ("Centro", "Perequê-Açu", 700),
+    ("Centro", "Estufa II", 600),
+    ("Itaguá", "Tenório", 300),
+    ("Itaguá", "ETA", 400),
+    ("Tenório", "ETA", 350),
+    ("Perequê-Açu", "Estufa II", 400),
+    ("Estufa II", "ETA", 500),
+    ("ETA", "Manguezal", 800)
+])
+
+# Salvar layout fixo para visualização consistente
+pos = nx.spring_layout(ubatuba, seed=42)
+
+# Simulando entupimento: removendo a tubulação Itaguá ↔ ETA
+ubatuba.remove_edge("Itaguá", "ETA")
+
+# Verificar conectividade
+print("🌊 Verificando conectividade após entupimento em Itaguá → ETA")
+
+if nx.is_connected(ubatuba):
+    print("✅ Ainda é possível conectar todos os bairros.")
+    
+    # Gerar nova MST com entupimento
+    mst_bloqueado = nx.minimum_spanning_tree(ubatuba)
+
+    # Visualizar a nova MST
+    plt.figure(figsize=(12, 7))
+    nx.draw(mst_bloqueado, pos, with_labels=True, node_color="salmon", node_size=3000, font_size=10)
+    edge_labels = nx.get_edge_attributes(mst_bloqueado, "weight")
+    nx.draw_networkx_edge_labels(mst_bloqueado, pos, edge_labels=edge_labels)
+    plt.title("⚠️ MST com Entupimento em Itaguá → ETA")
+    plt.show()
+    
+else:
+    print("❌ A rede se tornou desconectada! Alguns bairros ficaram sem acesso à estação.")
+    
+    # Ver grafo com falha
+    plt.figure(figsize=(12, 7))
+    nx.draw(ubatuba, pos, with_labels=True, node_color="gray", node_size=3000, font_size=10)
+    plt.title("🚫 Rede de Esgoto com Entupimento Crítico - Sem Conectividade Total")
+    plt.show()

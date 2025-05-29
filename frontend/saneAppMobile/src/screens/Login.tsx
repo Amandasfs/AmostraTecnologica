@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, Animated, Image } from 'react-native';
 import styles from '../assets/styles/loginStyles';
+import { LoginScreenNavigationProp } from '../types/navigation'; // ajuste o caminho conforme necessário
 
-export default function Login({ navigation }) {
+type Props = {
+  navigation: LoginScreenNavigationProp;
+};
+
+export default function Login({ navigation }: Props): React.JSX.Element {
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const scale = new Animated.Value(1);
@@ -12,11 +17,9 @@ export default function Login({ navigation }) {
       Animated.timing(scale, { toValue: 0.95, duration: 100, useNativeDriver: true }),
       Animated.timing(scale, { toValue: 1, duration: 100, useNativeDriver: true }),
     ]).start(() => {
-      // Após a animação, navega para a tela Home
       navigation.replace('Home');
     });
   };
-
   return (
     <View style={styles.container}>
       <Image source={require('../assets/img/LogoSF.png')} style={styles.logo} />

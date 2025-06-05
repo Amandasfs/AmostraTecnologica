@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 body{
-    background-color: white;
+    background-color: #101313;
 }
 .header{
     margin: 1rem;
@@ -42,6 +42,7 @@ body{
 }
 li{
     margin: 1rem;
+    color: wheat;
 }
 .cinza {
     color: gray;
@@ -62,9 +63,11 @@ li{
     color: #FF0000; /* vermelho puro */
   }
  footer {
-        background: #cfcdcdc4;
+        background: #000000c4;
         padding: 10px;
         text-align: center;
         color: rgb(248, 93, 36);
         margin-top: 20px;
       }
+.textL{
+  align-items: center;justify-content: center; text-align: center; color: wheat;}
